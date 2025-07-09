@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,13 +22,10 @@ class MainActivity : ComponentActivity() {
             NugulSettleUpTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Greeting(
-                        name = "@String/app_name",
+                        name = "너굴상점",
                         modifier = Modifier.padding(innerPadding)
                     )
-                    Greeting(
-                        name = "@String/subTitle",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+
                 }
             }
         }
@@ -38,7 +36,8 @@ class MainActivity : ComponentActivity() {
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(
         text = "Hello $name!",
-        modifier = modifier
+        modifier = modifier,
+        style = MaterialTheme.typography.displayLarge
     )
 }
 
