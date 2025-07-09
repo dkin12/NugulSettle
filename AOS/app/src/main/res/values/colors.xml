@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="Brand">#1EC58C</color>
+    <color name="Success">#14AE5C</color>
+    <color name="warning">#E8B931</color>
+    <color name="Danger">#EC221F</color>
+</resources>
