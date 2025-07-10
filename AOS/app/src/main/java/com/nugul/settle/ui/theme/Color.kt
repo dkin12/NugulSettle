@@ -22,15 +22,15 @@ val OnPrimaryDark = Color(0xFFFAFAFA)
 val OnBackgroundDark = Color(0xFFEFE5DE)
 
 // ColorPalette
-data class ThemeColor(val base: Color, val light: Color)
+data class GroupColor(val light: Color, val base: Color)
 val userColors = mapOf(
-    "Red" to ThemeColor(Color(0xFFFFE9EB), Color(0xFFF1516A)),
-    "Orange" to ThemeColor(Color(0xFFFCE3D5), Color(0xFFEEA573)),
-    "Yellow" to ThemeColor(Color(0xFFFFFBC2), Color(0xFFF2E93D)),
-    "Green" to ThemeColor(Color(0xFFE6FAE3), Color(0xFF08C686)),
-    "Blue" to ThemeColor(Color(0xFFE1E7F3), Color(0xFF6190FC)),
-    "Purple" to ThemeColor(Color(0xFFF5EAF7), Color(0xFFEA7AFF)),
-    "Pink" to ThemeColor(Color(0xFFFFE6F3), Color(0xFFFF8BC7)),
+    "Red" to GroupColor(Color(0xFFFFE9EB), Color(0xFFF1516A)),
+    "Orange" to GroupColor(Color(0xFFFCE3D5), Color(0xFFEEA573)),
+    "Yellow" to GroupColor(Color(0xFFFFFBC2), Color(0xFFF2E93D)),
+    "Green" to GroupColor(Color(0xFFE6FAE3), Color(0xFF08C686)),
+    "Blue" to GroupColor(Color(0xFFE1E7F3), Color(0xFF6190FC)),
+    "Purple" to GroupColor(Color(0xFFF5EAF7), Color(0xFFEA7AFF)),
+    "Pink" to GroupColor(Color(0xFFFFE6F3), Color(0xFFFF8BC7)),
 
 )
 

@@ -1,5 +1,6 @@
 package com.nugul.settle.ui.theme
 
+import androidx.compose.material3.Text
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
@@ -29,6 +30,10 @@ val AppTypography = Typography(
     displayLarge = TextStyle( // font_title
         fontFamily = TitleFont,
         fontSize = 32.sp
+    ),
+    displayMedium = TextStyle(
+        fontFamily = TitleFont,
+        fontSize = 24.sp
     ),
     titleLarge = TextStyle( // font_headline1
         fontFamily = Suit,
