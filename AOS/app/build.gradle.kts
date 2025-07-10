@@ -42,11 +42,16 @@ android {
 
 dependencies {
     // Import the Firebase BoM
-    implementation(platform("com.google.firebase:firebase-bom:33.16.0"))
+    implementation(platform(libs.firebase.bom))
 
     // When using the BoM, don't specify versions in Firebase dependencies
-    implementation("com.google.firebase:firebase-analytics")
+    implementation(libs.firebase.analytics)
+    // Jetpack app Bar
+    implementation(platform(libs.androidx.compose.bom.v20250101))
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.foundation)
 
+    
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
