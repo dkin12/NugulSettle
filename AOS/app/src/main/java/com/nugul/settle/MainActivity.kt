@@ -18,10 +18,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.nugul.settle.navigation.AppNavHost
 import com.nugul.settle.ui.theme.NugulSettleUpTheme
@@ -73,12 +70,10 @@ fun ScrollContent(innerPadding: PaddingValues,NavController: NavHostController) 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(innerPadding) // ← 앱바에 안 겹치게 자동 여백 적용
+            .padding(innerPadding) // 앱바에 안 겹치게 자동 여백 적용
     ) {
         AppNavHost(navController = NavController)
     }
 }
-
-
 
 
