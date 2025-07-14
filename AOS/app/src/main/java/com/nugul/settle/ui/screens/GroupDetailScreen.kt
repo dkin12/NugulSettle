@@ -7,6 +7,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -18,6 +19,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.nugul.settle.R
+import com.nugul.settle.dataclass.Meet
 import com.nugul.settle.ui.item.MeetingAddItem
 import com.nugul.settle.ui.item.MeetingListItem
 import com.nugul.settle.ui.sampleGroupDetail
@@ -30,21 +32,22 @@ import com.nugul.settle.ui.theme.userColors
 @Composable
 fun DetailScreen(groupIdx: String, navController: NavController, scrollBehavior: TopAppBarScrollBehavior) {
     val group = sampleGroups.find { it.groupIdx == groupIdx }
-    val itemDetail = sampleGroupDetail.find { it.groupIdx == groupIdx }
     val meetings = sampleMeet.filter { it.groupIdx == groupIdx }
     var expanded by remember { mutableStateOf(false) }
     val groupColor = userColors[group!!.groupColor] ?: userColors["Red"]
+    val gridItems = listOf<Meet?>(null) + meetings
+    val chunkedItems = gridItems.chunked(2)
 
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 24.dp)
             .background(color = MaterialTheme.colorScheme.surface)
-            .nestedScroll(scrollBehavior.nestedScrollConnection)
+            .nestedScroll(scrollBehavior.nestedScrollConnection),
+        contentPadding = PaddingValues(horizontal = 24.dp)
     ) {
         item {
             Column(
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp)
+                modifier = Modifier.padding(vertical = 12.dp)
             ) {
                 Row {
                     Box(
@@ -130,35 +133,39 @@ fun DetailScreen(groupIdx: String, navController: NavController, scrollBehavior:
                     Text(
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onBackground,
-                        text = "총 ${itemDetail!!.meetingIdxList.size} 모임"
+                        text = "총 ${meetings.size} 모임"
                     )
                 }
 
                 Spacer(modifier = Modifier.height(12.dp))
-
-                LazyVerticalGrid(
-                    columns = GridCells.Fixed(2),
-                    modifier = Modifier.heightIn(max = 1000.dp),
-                    verticalArrangement = Arrangement.spacedBy(16.dp),
-                    horizontalArrangement = Arrangement.spacedBy(16.dp)
-                ) {
-                    item {
-                        MeetingAddItem(navController)
-                    }
-                    items(meetings) { it ->
-                        MeetingListItem(group.groupColor, it, navController)
-                    }
-                }
             }
         }
 
-        if (itemDetail == null) {
+
+        items(chunkedItems) { rowItems ->
+            Row(
+                modifier = Modifier.height(IntrinsicSize.Min).fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
+            ) {
+                rowItems.forEach { item ->
+                    Box(modifier = Modifier.weight(1f).fillMaxHeight()) {
+                        if (item == null) {
+                            MeetingAddItem(navController = navController)
+                        } else {
+                            MeetingListItem(group.groupColor, item, navController)
+                        }
+                    }
+                }
+                if (rowItems.size == 1) {
+                    Spacer(modifier = Modifier.weight(1f))
+                }
+            }
+            Spacer(modifier = Modifier.height(16.dp))
+        }
+
+        if (meetings.isEmpty()) {
             item {
                 Text("등록된 모임이 없습니다.")
-            }
-        } else {
-            item {
-                Text("모임이 존재합니다.~")
             }
         }
     }

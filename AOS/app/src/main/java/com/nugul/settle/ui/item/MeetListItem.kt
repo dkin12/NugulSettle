@@ -34,7 +34,9 @@ fun MeetingListItem(groupColor: String, item: Meet, navController: NavController
     val groupColor = userColors[groupColor] ?: userColors["Red"]
     Box(
         modifier = Modifier
-            .defaultMinSize(minWidth = 174.dp, minHeight = 72.dp)
+            .defaultMinSize(minHeight = 72.dp)
+            .fillMaxWidth()
+            .fillMaxHeight()
             .border(width = 0.5.dp, color = MaterialTheme.colorScheme.onSurface, shape = RoundedCornerShape(topStart = 0.dp, topEnd = 5.dp, bottomEnd = 5.dp, bottomStart = 5.dp))
             .clip(RoundedCornerShape(topStart = 0.dp, topEnd = 5.dp, bottomEnd = 5.dp, bottomStart = 5.dp))
             .background(color = MaterialTheme.colorScheme.background)
@@ -90,8 +92,9 @@ fun MeetingListItem(groupColor: String, item: Meet, navController: NavController
                     }
                 }
                 Row(
-                    modifier = Modifier.fillMaxWidth()
-                    .padding(top = 5.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 5.dp),
                     horizontalArrangement = Arrangement.Absolute.Right
 
                 ){
@@ -115,7 +118,8 @@ fun MeetingListItem(groupColor: String, item: Meet, navController: NavController
 fun MeetingAddItem(navController: NavController){
     Box(
         modifier = Modifier
-            .defaultMinSize(minWidth = 174.dp, minHeight = 72.dp)
+            .defaultMinSize(minHeight = 72.dp)
+            .fillMaxWidth()
             .fillMaxHeight()
             .border(width = 0.5.dp, color = MaterialTheme.colorScheme.onSurface)
             .background(color = MaterialTheme.colorScheme.background),
