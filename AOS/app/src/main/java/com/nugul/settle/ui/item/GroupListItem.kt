@@ -45,6 +45,7 @@ import com.nugul.settle.ui.theme.userColors
 
 fun GroupListItem(itemIndex:Int ,item: Group, navController: NavHostController) {
     val groupColor = userColors[item.groupColor] ?: userColors["Red"]
+    var expanded by remember { mutableStateOf(false) }
     Row (
         modifier = Modifier
             .fillMaxWidth()
@@ -103,7 +104,7 @@ fun GroupListItem(itemIndex:Int ,item: Group, navController: NavHostController) 
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onPrimary
                         )
-                        var expanded by remember { mutableStateOf(false) }
+
                         Box{
                             IconButton(
                                 modifier = Modifier.size(16.dp),
@@ -186,7 +187,7 @@ fun GroupAddItem(navController: NavHostController){
         modifier = Modifier
             .fillMaxWidth()
             .clickable {
-                navController.navigate("detail/새그룹")
+                navController.navigate("detail/1")
             }
             .dropShadow(
                 shape = RoundedCornerShape(10.dp),

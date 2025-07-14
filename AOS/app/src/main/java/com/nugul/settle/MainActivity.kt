@@ -17,6 +17,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
@@ -45,7 +46,9 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun NugulSettleApp() {
     val navController = rememberNavController()
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
     Scaffold(
+        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             TopAppBar(
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -57,22 +60,18 @@ fun NugulSettleApp() {
                         text = stringResource(R.string.app_name),
                         style = MaterialTheme.typography.displayMedium
                     )
-                }
+                },
+                scrollBehavior = scrollBehavior
             )
         },
     ) { innerPadding ->
-        ScrollContent(innerPadding, navController)
-    }
-}
-
-@Composable
-fun ScrollContent(innerPadding: PaddingValues,NavController: NavHostController) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(innerPadding) // 앱바에 안 겹치게 자동 여백 적용
-    ) {
-        AppNavHost(navController = NavController)
+        AppNavHost(
+            navController = navController,
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding),
+            scrollBehavior = scrollBehavior
+        )
     }
 }
 

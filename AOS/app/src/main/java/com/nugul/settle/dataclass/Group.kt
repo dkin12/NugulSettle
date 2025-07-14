@@ -1,7 +1,7 @@
 package com.nugul.settle.dataclass
 
 data class Group(
-    val groupIdx : String?,
+    val groupIdx : String,
     val userIdx : String,
     val groupName : String,
     val groupIcon : String,

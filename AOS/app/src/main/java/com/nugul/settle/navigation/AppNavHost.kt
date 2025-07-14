@@ -1,6 +1,8 @@
 package com.nugul.settle.navigation
 
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.*
@@ -10,23 +12,37 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.navArgument
 import com.nugul.settle.ui.screens.DetailScreen
 import com.nugul.settle.ui.screens.HomeGroupScreen
+import com.nugul.settle.ui.screens.MeetDegreeScreen
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AppNavHost(navController: NavHostController) {
+fun AppNavHost(
+    navController: NavHostController,
+    modifier: Modifier = Modifier,
+    scrollBehavior: TopAppBarScrollBehavior
+) {
     NavHost(
         navController = navController,
-        startDestination = "group"
+        startDestination = "group",
+        modifier = modifier
     ) {
         composable("group") {
-            HomeGroupScreen(navController)
+            HomeGroupScreen(navController, scrollBehavior)
         }
         composable(
-            route = "detail/{itemId}",
-            arguments = listOf(navArgument("itemId") { type = NavType.StringType })
+            route = "detail/{groupId}",
+            arguments = listOf(navArgument("groupId") { type = NavType.StringType })
         ) {
-            val itemId = it.arguments?.getString("itemId")
-            DetailScreen(itemId = itemId ?: "")
+            val itemId = it.arguments?.getString("groupId")
+            DetailScreen(groupIdx = itemId ?: "g1", navController, scrollBehavior)
+        }
+        composable(
+            route = "detail/{groupId}/{meetId}",
+            arguments = listOf(navArgument("meetId") { type = NavType.StringType },)
+        ) {
+            val meetId = it.arguments?.getString("meetId")
+            MeetDegreeScreen(navController)
         }
     }
 }
