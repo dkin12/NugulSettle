@@ -1,7 +1,5 @@
 package com.nugul.settle.ui.item
 
-import android.util.Log
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -28,7 +26,6 @@ import androidx.navigation.NavHostController
 import com.nugul.settle.R
 import com.nugul.settle.dataclass.Group
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
@@ -40,20 +37,19 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.focus.onFocusChanged
-import com.nugul.settle.ui.theme.dropShadow
+import com.nugul.settle.ui.dropShadow
 import com.nugul.settle.ui.theme.userColors
 
 @Composable
 
 
 fun GroupListItem(itemIndex:Int ,item: Group, navController: NavHostController) {
-    val groupColor = userColors[item.group_color] ?: userColors["Red"]
+    val groupColor = userColors[item.groupColor] ?: userColors["Red"]
     Row (
         modifier = Modifier
             .fillMaxWidth()
             .clickable {
-                navController.navigate("detail/${item.group_name}")
+                navController.navigate("detail/${item.groupIdx}")
             }
             .dropShadow(
                 shape = RoundedCornerShape(10.dp),
@@ -89,7 +85,7 @@ fun GroupListItem(itemIndex:Int ,item: Group, navController: NavHostController) 
                         .background(groupColor.light),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text(text = item.group_icon)
+                    Text(text = item.groupIcon)
                 }
 
                 Spacer(Modifier.width(24.dp))
@@ -103,7 +99,7 @@ fun GroupListItem(itemIndex:Int ,item: Group, navController: NavHostController) 
                     ){
                         Text(
                             modifier = Modifier.weight(1f),
-                            text = item.group_name,
+                            text = item.groupName,
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onPrimary
                         )
@@ -154,7 +150,7 @@ fun GroupListItem(itemIndex:Int ,item: Group, navController: NavHostController) 
                     ){
                         Text(
                             modifier = Modifier.padding(5.dp),
-                            text = "총 ${item.group_member_cnt} 명",
+                            text = "총 ${item.groupMemberCnt} 명",
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onPrimary
                         )
