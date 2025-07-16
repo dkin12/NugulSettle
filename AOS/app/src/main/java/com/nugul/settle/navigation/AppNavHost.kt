@@ -38,11 +38,13 @@ fun AppNavHost(
             DetailScreen(groupIdx = itemId ?: "g1", navController, scrollBehavior)
         }
         composable(
-            route = "detail/{groupId}/{meetId}",
-            arguments = listOf(navArgument("meetId") { type = NavType.StringType },)
+            route = "detail/{groupId}/{meetIdx}",
+            arguments = listOf(navArgument("meetIdx") { type = NavType.StringType },)
         ) {
-            val meetId = it.arguments?.getString("meetId")
-            MeetDegreeScreen(navController)
+            val meetIdx = it.arguments?.getString("meetIdx")
+            if (meetIdx != null) {
+                MeetDegreeScreen(meetIdx, navController)
+            }
         }
     }
 }
