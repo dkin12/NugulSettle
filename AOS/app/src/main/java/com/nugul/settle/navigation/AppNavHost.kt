@@ -43,7 +43,7 @@ fun AppNavHost(
         ) {
             val meetIdx = it.arguments?.getString("meetIdx")
             if (meetIdx != null) {
-                MeetDegreeScreen(meetIdx, navController)
+                MeetDegreeScreen(meetIdx, navController, scrollBehavior)
             }
         }
     }
