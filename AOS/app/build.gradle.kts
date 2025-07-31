@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.nugul.settle"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.nugul.settle"
