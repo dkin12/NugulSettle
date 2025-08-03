@@ -1,0 +1,121 @@
+095F6B49E8584C5E98832274AB634769
+
+
+
+
+val pagerState = rememberPagerState(pageCount = { degree.size})
+
+
+val pagerState = rememberPagerState(pageCount = { meetDegrees.size })
+var showDeleteConfirmation by remember { mutableStateOf(false) }
+var itemToDelete by remember { mutableStateOf<MeetDegree?>(null) }
+
+LaunchedEffect(meetDegrees.size) {
+    if (pagerState.currentPage >= meetDegrees.size && meetDegrees.isNotEmpty()) {
+        pagerState.animateScrollToPage(meetDegrees.size - 1)
+    }
+}
+
+if (showDeleteConfirmation && itemToDelete != null) {
+    AlertDialog(
+        onDismissRequest = { showDeleteConfirmation = false },
+        title = { Text("삭제 확인") },
+        text = { Text("이 항목을 삭제하시겠습니까?") },
+        confirmButton = {
+            Button(
+                onClick = {
+                    meetDegrees = meetDegrees.filter { it.degreeIdx != itemToDelete!!.degreeIdx }
+                    showDeleteConfirmation = false
+                    itemToDelete = null
+                }
+            ) {
+                Text("삭제")
+            }
+        },
+        dismissButton = {
+            Button(onClick = { showDeleteConfirmation = false }) {
+                Text("취소")
+            }
+        }
+    )
+}
+
+Column(
+    modifier = Modifier
+        .fillMaxSize()
+        .padding(16.dp)
+) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.End
+    ) {
+        IconButton(onClick = {
+            val newDegree = MeetDegree(
+                degreeIdx = UUID.randomUUID().toString(),
+                groupIdx = "g1",
+                userIdx = "101",
+                meetIdx = "mt1",
+                degreePrice = 0,
+                degreePlace = "",
+                degreeDate = "",
+                degreeMemo = "",
+                degreePayer = "",
+                degreeMember = mutableListOf(),
+                degreeCreateDate = "",
+                degreeUpdateDate = "",
+                degreeIsDeleted = false,
+                degreeDeletedDate = ""
+            )
+            meetDegrees = meetDegrees + newDegree
+        }) {
+            Icon(Icons.Default.Add, contentDescription = "Add Settlement")
+        }
+    }
+
+    HorizontalPager(
+        state = pagerState,
+        modifier = Modifier.fillMaxSize(),
+        contentPadding = PaddingValues(horizontal = 32.dp),
+        pageSpacing = 16.dp
+    ) { page ->
+        val degree = meetDegrees[page]
+        var price by remember { mutableStateOf(degree.degreePrice.toString()) }
+        var place by remember { mutableStateOf(degree.degreePlace) }
+
+        Card(
+            modifier = Modifier
+                .padding(16.dp)
+                .fillMaxWidth()
+        ) {
+            Column(
+                modifier = Modifier
+                    .padding(16.dp)
+                    .background(MaterialTheme.colorScheme.surface)
+            ) {
+                if (meetDegrees.size >= 2) {
+                    IconButton(
+                        onClick = {
+                            itemToDelete = degree
+                            showDeleteConfirmation = true
+                        },
+                        modifier = Modifier.align(Alignment.End)
+                    ) {
+                        Icon(Icons.Default.Close, contentDescription = "Delete Settlement")
+                    }
+                }
+                TextField(
+                    value = price,
+                    onValueChange = { price = it },
+                    label = { Text("금액") },
+                    modifier = Modifier.fillMaxWidth()
+                )
+                TextField(
+                    value = place ?: "",
+                    onValueChange = { place = it },
+                    label = { Text("장소") },
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+        }
+    }
+}
