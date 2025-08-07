@@ -10,11 +10,10 @@ data class User(
     @Column(unique = true)
     val userIdx : String,
     val userEmail : String?,
+    val userPassword: String,
     val userName : String,
     val userCreateDate : String,
     val userUpdateDate : String,
     val userIsDeleted : Boolean,
-    val userDeletedDate : String
-
-
+    val userDeletedDate : String?
 )
