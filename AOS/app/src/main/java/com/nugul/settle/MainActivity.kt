@@ -1,6 +1,7 @@
 package com.nugul.settle
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -16,11 +17,13 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.nugul.settle.dataclass.LoginRequest
 import com.nugul.settle.navigation.AppNavHost
 import com.nugul.settle.ui.theme.NugulSettleUpTheme
 
@@ -47,6 +50,16 @@ class MainActivity : ComponentActivity() {
 fun NugulSettleApp() {
     val navController = rememberNavController()
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+
+    LaunchedEffect(Unit) {
+        val response = RetrofitClient.api.login(LoginRequest("test123", "test"))
+        if (response.isSuccessful) {
+            Log.d("Login", "성공: ${response.body()}")
+        } else {
+            Log.e("Login", "실패: ${response.errorBody()?.string()}")
+        }
+    }
+
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
