@@ -35,6 +35,10 @@ val AppTypography = Typography(
         fontFamily = TitleFont,
         fontSize = 24.sp
     ),
+    displaySmall = TextStyle(
+        fontFamily = Paperlogy,
+        fontSize = 24.sp
+    ),
     titleLarge = TextStyle( // font_headline1
         fontFamily = Suit,
         fontWeight = FontWeight.Bold,

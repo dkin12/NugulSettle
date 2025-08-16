@@ -45,7 +45,7 @@ fun MeetingListItem(groupColor: String, item: Meet, navController: NavController
             }
     ){
         Image(
-            painter = painterResource(id = R.drawable.rectangel_meeting),
+            painter = painterResource(id = R.drawable.img_rectangel_meeting),
             colorFilter = ColorFilter.tint(groupColor!!.base),
             contentDescription = null
         )
